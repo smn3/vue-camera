@@ -64,10 +64,11 @@ function defineCameraComponent()
         navigator.mediaDevices.getUserMedia(constraints)
         .then( stream =>
         {
-          if( !this.$el.srcObject	)
-            this.$el.src = URL.createObjectURL(stream);
-          else
-            this.$el.srcObject = stream;
+          try {
+		this.$el.srcObject = stream;
+	  } catch (error) {
+	  	this.$el.srcObject = URL.createObjectURL(stream);
+	  }
 
           //info.innerHTML+= "<pre>DONE</pre>";
           console.log("DONE");
